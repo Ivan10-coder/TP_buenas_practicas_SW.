@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//Agregamso la libreria para la busqueda por caracteres
+#include <string.h>
 struct administracion{
 	char calle1[20];
 	char calle2[20];
@@ -10,6 +11,7 @@ void ingreso_datos(struct administracion *vector,int cant_vehiculos );
 //Agragamos funcion para ingresar nuevos semaforos en cualquier momento 
 struct administracion *nuevos(struct administracion *vector,int *cant_vehiculos);
 void Mostrar(struct administracion *vector,int cant_vehiculos);
+//Modificacion de la busqueda de entero a caracteres
 void Buscar(struct administracion *vector,int cant_vehiculos);
 
 
@@ -109,31 +111,33 @@ void Mostrar(struct administracion *vector,int cant_vehiculos){
 		printf("semaforo\n");
 		printf("Nombre de calle2:%s\n",vector[i].calle1);
 		printf("Nombre de calle1:%s\n",vector[i].calle2);
-		printf("Trafico:%d",vector[i].trafico);
+		printf("Trafico:%d\n",vector[i].trafico);
 		printf("------------\n");
 	}
-}	
+}
+//Funcion de busqueda modificada
 void Buscar(struct administracion *vector,int cant_vehiculos){
-	//tambien podriamos hacerlo por strmp
-	int buscar;
-	int encontrado=0;
-	int posicion;
+	//Definimos una variable tipo char
+	char busqueda [20];
+	int encontrado = 0;
 	
-	printf("Ingrese trafico:");
-	scanf("%d",&buscar);
+	printf("Ingrese nombre de la calle: ");
+	//Guardamos el nombre de la calle ingresada en el char de arriba
+	scanf("%s", busqueda);
 
 	for(int i=0;i<cant_vehiculos;i++){
-		if(buscar==vector[i].trafico){
-			buscar=vector[i].trafico;
+		//Comparamos si coincide con calle1 o calle2 usando strcmp
+		if (strcmp(vector[i].calle1, busqueda) == 0 || strcmp(vector[i].calle2, busqueda) == 0) {
+			//Imprime si se cuimple la condicion 
+			printf("\n--- Interseccion encontrada ---\n");
+			printf("Calle 1: %s\n", vector[i].calle1);
+			printf("Calle 2: %s\n", vector[i].calle2);
+			printf("Trafico: %d\n", vector[i].trafico);
+			printf("-------------------------------\n");
 			encontrado=1;
-			posicion=i;
 		}
 	}
-	if(encontrado==1){
-		printf("Nombre de calle1:%s\n",vector[posicion].calle1);
-		printf("Nombre de calle2:%s\n",vector[posicion].calle2);
-		printf("Trafico:%d\n",vector[posicion].trafico);
-	}else{
-		printf("No encontrado");
+	if(!encontrado){
+		printf("La se encontro interseccion para esa calle.\n");
 	}
 }
