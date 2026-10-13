@@ -7,6 +7,7 @@ struct administracion{
 	char calle2[20];
 	int trafico;
 };
+//PROTOTIPOS DE LAS FUNCIONES 
 void ingreso_datos(struct administracion *vector,int cant_vehiculos );
 //Agragamos funcion para ingresar nuevos semaforos en cualquier momento 
 struct administracion *nuevos(struct administracion *vector,int *cant_vehiculos);
@@ -18,10 +19,12 @@ void Buscar(struct administracion *vector,int cant_vehiculos);
 int main(int argc, char *argv[]) {
 	int opcion;
 	int cant_vehiculo;
+	//Al incio elijimos una cantidad
 	printf("ingresar cantidad de semaforos:");
 	scanf("%d",&cant_vehiculo);
-	
+	//Definimos una variable tipo puntero 
 	struct administracion *vector;
+	//Guardamos la direcccion que nos da el malloc para la cantidad de datos ingresados
 	vector = malloc(cant_vehiculo*sizeof(struct administracion));
 	
 
@@ -39,6 +42,7 @@ int main(int argc, char *argv[]) {
 		scanf("%d",&opcion);
 		switch(opcion){
 		case 1:
+			//Llamado de la funcion ingreso_datos 
 			ingreso_datos(vector,cant_vehiculo);
 			break;
 		case 2:
@@ -46,9 +50,11 @@ int main(int argc, char *argv[]) {
 			vector = nuevos(vector,&cant_vehiculo);
 			break;
 		case 3:
+			//Hacemos llamado de la funcion Mostrar
 			Mostrar(vector,cant_vehiculo);
 			break;
 		case 4:
+			//Hacemos llamado de la funcion buscar
 			Buscar(vector,cant_vehiculo);
 			break;
 		case 5:
@@ -66,6 +72,7 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
+//Funcion para ingresar datos 
 void ingreso_datos(struct administracion *vector,int cant_vehiculos ){
 	for(int i=0;i<cant_vehiculos;i++){
 		printf("Nombre de calle 1:");
@@ -77,6 +84,7 @@ void ingreso_datos(struct administracion *vector,int cant_vehiculos ){
 		printf("-----------\n");
 	}
 }
+//Funcion para ingresar datos en todo momento
 struct administracion *nuevos(struct administracion *vector,int *cant_vehiculos){
 	//Modificamos la variable agregando uno mas 
 	*cant_vehiculos = *cant_vehiculos + 1;
@@ -105,7 +113,7 @@ struct administracion *nuevos(struct administracion *vector,int *cant_vehiculos)
 	return vector;
 	
 }
-	
+//Funcion de mostrar los datos ingresados	
 void Mostrar(struct administracion *vector,int cant_vehiculos){
 	for(int i=0;i<cant_vehiculos;i++){
 		printf("semaforo\n");
